@@ -3,8 +3,13 @@
 # dependencies
 node_modules
 
+# dev
+pacts
+
 # production
 build
+coverage
+logs
 
 # misc
 .DS_Store
