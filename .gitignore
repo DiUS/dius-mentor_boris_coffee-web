@@ -1,15 +1,16 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-node_modules
+node_modules/
+jest/
 
 # dev
-pacts
+pacts/
 
 # production
-build
-coverage
-logs
+build/
+coverage/
+logs/
 
 # misc
 .DS_Store

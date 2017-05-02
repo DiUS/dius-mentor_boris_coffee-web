@@ -25,10 +25,12 @@
   "standard": {
     "globals": [
       "afterAll",
+      "afterEach",
       "beforeAll",
       "beforeEach",
       "context",
       "describe",
+      "fail",
       "fetch",
       "it"
     ]

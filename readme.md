@@ -9,4 +9,6 @@ Check the [basic design](readme_design.md).
 ```bash
 > npm install
 > npm start
+
+> npm test -- --coverage
 ```
