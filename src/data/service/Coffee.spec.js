@@ -78,7 +78,9 @@ describe('Coffee service (orders)', () => {
             body: {
               orders: eachLike({
                 id: like(29),
-                path: like('/order/29')
+                path: like('/order/29'),
+                name: like('Jeff'),
+                coffeeSummaries: eachLike('Large Magic', { min: 2 })
               }, {
                 min: 3, max: 7
               })
@@ -95,6 +97,9 @@ describe('Coffee service (orders)', () => {
 
           body.orders.forEach((it) => {
             expect(it.path).to.eql(`/order/${it.id}`)
+            expect(it.name).to.eql('Jeff')
+            expect(it.coffeeSummaries.length).to.eql(2)
+            expect(it.coffeeSummaries).to.contain('Large Magic')
           })
         })
         .catch(fail)

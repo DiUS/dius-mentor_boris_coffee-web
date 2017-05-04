@@ -1,24 +1,9 @@
 import { RECEIVE_ORDERS_LIST } from '../actions'
-const cannedOrders = [
-  {
-    name: 'Boris',
-    coffeeSummaries: [ 'lol', 'face' ]
-  }, {
-    name: 'Jimothy',
-    coffeeSummaries: [ 'fish' ]
-  }, {
-    name: 'Almenda',
-    coffeeSummaries: [ 'hats', 'llamas' ]
-  }
-]
 
-const orders = (state = cannedOrders, action) => {
+const orders = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_ORDERS_LIST:
-      return action.orders.map(it => ({
-        name: `${it.id}`,
-        coffeeSummaries: [ it.path ] })
-      )
+      return action.orders
     default:
       return state
   }
