@@ -1,3 +1,4 @@
+import { RECEIVE_ORDERS_LIST } from '../actions'
 const cannedOrders = [
   {
     name: 'Boris',
@@ -12,7 +13,15 @@ const cannedOrders = [
 ]
 
 const orders = (state = cannedOrders, action) => {
-  return state
+  switch (action.type) {
+    case RECEIVE_ORDERS_LIST:
+      return action.orders.map(it => ({
+        name: `${it.id}`,
+        coffeeSummaries: [ it.path ] })
+      )
+    default:
+      return state
+  }
 }
 
 export default orders

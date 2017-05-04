@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { baseUrl } from '../../config.js'
+import { baseUrl } from '../../config'
 
 const mimeJson = 'application/json'
 const headers = { 'Content-Type': mimeJson, 'Accept': mimeJson }
