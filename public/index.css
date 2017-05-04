@@ -1,0 +1,31 @@
+.title {
+  background-color: darkblue;
+  color: white;
+}
+
+.order-summary {
+  border: 1px solid lightgrey;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.delete-card {
+  float: right;
+  background-color: red;
+  color: white;
+
+  width: 1.0rem;
+  height: 1.0rem;
+
+  display: inline-table;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.order-name {
+  font-weight: bold;
+}
+
+.order-coffee-summary:before {
+  content: "- "
+}

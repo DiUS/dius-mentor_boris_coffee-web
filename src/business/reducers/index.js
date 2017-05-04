@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux'
 
-const coffeeApp = combineReducers({
-  // Give it a minute
+import selected from './selected'
+import orders from './orders'
+
+const rootReducer = combineReducers({
+  selected,
+  orders
 })
 
-export default coffeeApp
+export default rootReducer
