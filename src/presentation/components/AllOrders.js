@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Title from './Title'
 import OrdersListContainer from '../containers/OrdersListContainer'
 
-class OrdersAll extends Component {
+class AllOrders extends Component {
   render () {
     return (
       <div className='orders-all'>
@@ -14,4 +14,4 @@ class OrdersAll extends Component {
   }
 }
 
-export default OrdersAll
+export default AllOrders

@@ -80,7 +80,7 @@ describe('CoffeeShop service (orders)', () => {
                 id: like(29),
                 path: like('/order/29'),
                 name: like('Jeff'),
-                coffeeSummaries: eachLike('Large Magic', { min: 2 })
+                coffeeSummaries: eachLike(like('Large Magic'), { min: 2 })
               }, {
                 min: 3, max: 7
               })
@@ -100,6 +100,54 @@ describe('CoffeeShop service (orders)', () => {
             expect(it.name).to.eql('Jeff')
             expect(it.coffeeSummaries.length).to.eql(2)
             expect(it.coffeeSummaries).to.contain('Large Magic')
+          })
+        })
+        .catch(fail)
+      )
+    })
+
+    describe('gets one order', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'order 23',
+          uponReceiving: 'request to get a specific order',
+          withRequest: {
+            method: 'GET',
+            path: '/order/23',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 23,
+              coffees: eachLike({
+                id: like(66),
+                summary: like('Flat White'),
+                path: like('/order/23/coffee/66')
+              }, {
+                min: 2
+              }),
+              name: like('Jimothy'),
+              path: '/order/23'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.getOrder(23)
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 23,
+            name: 'Jimothy',
+            coffees: [
+              { id: 66, summary: 'Flat White', path: '/order/23/coffee/66' },
+              { id: 66, summary: 'Flat White', path: '/order/23/coffee/66' }
+            ],
+            path: '/order/23'
           })
         })
         .catch(fail)
