@@ -12,7 +12,14 @@ body {
 }
 
 .nav-back {
+  background-color: transparent;
   float: left;
+
+  width: 2.0rem;
+
+  display: inline-table;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .order-summary {

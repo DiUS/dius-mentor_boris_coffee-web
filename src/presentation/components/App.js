@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import actions from '../../business/actions'
 import AllOrders from './AllOrders'
+import Order from './Order'
 
 class App extends Component {
 
@@ -23,14 +24,10 @@ class App extends Component {
     }
 
     if (orderId) {
-      return (
-        <div>Placeholder: edit order {orderId}</div>
-      )
+      return (<Order />)
     }
 
-    return (
-      <AllOrders />
-    )
+    return (<AllOrders />)
   }
 
 }
