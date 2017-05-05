@@ -5,8 +5,14 @@ const mimeJson = 'application/json'
 const headers = { 'Content-Type': mimeJson, 'Accept': mimeJson }
 const wrapRequest = (url) => fetch(url, { headers }).then(resp => resp.json())
 
-const Coffee = (url = baseUrl) => ({
-  listOrders: () => wrapRequest(`${url}/order`)
+const CoffeeShop = (url = baseUrl) => ({
+
+  // orders
+  listOrders: () => wrapRequest(`${url}/order`),
+  getOrder: (orderId) => wrapRequest(`${url}/order/${orderId}`)
+
+  // coffees
+
 })
 
-export default Coffee
+export default CoffeeShop

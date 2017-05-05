@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { fetchOrdersList } from '../../business/actions'
+import actions from '../../business/actions'
 import AllOrders from './AllOrders'
 
 class App extends Component {
 
   componentDidMount () {
-    fetchOrdersList(this.props.dispatch)
+    this.fetchOrdersList()
+  }
+
+  fetchOrdersList () {
+    actions.fetchOrdersList(this.props.dispatch)
   }
 
   render () {

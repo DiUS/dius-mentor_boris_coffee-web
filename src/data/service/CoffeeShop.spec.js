@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import pact from 'pact'
 const { eachLike, somethingLike: like } = pact.Matchers
 
-import Coffee from './Coffee'
+import CoffeeShop from './CoffeeShop'
 
 const mockServerStartupTimeout = 15000 // Slow in docker.
 const port = 1234
@@ -11,8 +11,8 @@ const mimeAppJson = 'application/json'
 const requestHeaders = { 'Accept': mimeAppJson }
 const responseHeaders = { 'Content-Type': mimeAppJson }
 
-describe('Coffee service (orders)', () => {
-  const client = Coffee(`http://localhost:${port}`)
+describe('CoffeeShop service (orders)', () => {
+  const client = CoffeeShop(`http://localhost:${port}`)
 
   let provider = pact({
     consumer: 'Coffee Web Consumer',

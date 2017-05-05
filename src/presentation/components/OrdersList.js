@@ -8,7 +8,7 @@ class OrdersList extends Component {
     return (
       <div className='orders-list'>
         {this.props.orders.map((it, i) =>
-          <OrderSummary {...it} key={i} />
+          <OrderSummary {...it} dispatch={this.props.dispatch} key={i} />
         )}
       </div>
     )
