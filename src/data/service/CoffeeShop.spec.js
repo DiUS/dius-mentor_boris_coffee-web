@@ -185,5 +185,43 @@ describe('CoffeeShop service (orders)', () => {
         })
       )
     })
+
+    describe('names an order', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'empty order 19',
+          uponReceiving: 'request to change order name',
+          withRequest: {
+            method: 'PATCH',
+            path: '/order/19',
+            headers: requestHeaders,
+            body: {
+              name: 'Jimbo'
+            }
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 19,
+              path: '/order/19'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.nameOrder(19, 'Jimbo')
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 19,
+            path: '/order/19'
+          })
+        })
+        .catch(fail)
+      )
+    })
   })
 })

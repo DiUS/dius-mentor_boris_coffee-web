@@ -3,7 +3,17 @@ import { baseUrl } from '../../config'
 
 const mimeJson = 'application/json'
 const headers = { 'Content-Type': mimeJson, 'Accept': mimeJson }
-const wrapRequest = (url) => fetch(url, { headers })
+const GET = 'GET'
+const PATCH = 'PATCH'
+
+const transformBody = (body) => {
+  if (body) {
+    return JSON.stringify(body)
+  }
+  return null
+}
+const wrapRequest = (url, method = GET, body = null) =>
+  fetch(url, { method, headers, body: transformBody(body) })
   .then((resp) => {
     const json = resp.json()
     if (resp.status >= 400) {
@@ -23,7 +33,8 @@ const CoffeeShop = (url = baseUrl) => ({
 
   // orders
   listOrders: () => wrapRequest(`${url}/order`),
-  getOrder: (orderId) => wrapRequest(`${url}/order/${orderId}`)
+  getOrder: (orderId) => wrapRequest(`${url}/order/${orderId}`),
+  nameOrder: (orderId, name) => wrapRequest(`${url}/order/${orderId}`, PATCH, { name })
 
   // coffees
 
