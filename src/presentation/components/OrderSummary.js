@@ -12,7 +12,7 @@ class OrderSummary extends Component {
   render () {
     const { name, coffeeSummaries: summaries } = this.props
     return (
-      <div className='order-summary' onClick={(e) => this.select(e)}>
+      <div className='order-summary card' onClick={(e) => this.select(e)}>
         <span className='delete-card'>✕</span>
         <div className='order-name'>{name}</div>
         {summaries.map((it, i) =>

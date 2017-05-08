@@ -11,6 +11,23 @@ body {
   text-align: center;
 }
 
+.loading {
+  color: gray;
+  text-align: center;
+}
+
+.card {
+  border: 1px solid lightgrey;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.no-card {
+  border: 1px solid transparent;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
 .nav-back {
   background-color: transparent;
   float: left;
@@ -20,12 +37,6 @@ body {
   display: inline-table;
   vertical-align: middle;
   text-align: center;
-}
-
-.order-summary {
-  border: 1px solid lightgrey;
-  margin: 0.5rem;
-  padding: 0.5rem;
 }
 
 .delete-card {
@@ -39,6 +50,9 @@ body {
   display: inline-table;
   vertical-align: middle;
   text-align: center;
+}
+
+.order-summary {
 }
 
 .order-name {

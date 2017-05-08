@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import actions from '../../business/actions'
 import AllOrders from './AllOrders'
-import Order from './Order'
+import SingleOrder from './SingleOrder'
 
 class App extends Component {
 
@@ -24,7 +24,7 @@ class App extends Component {
     }
 
     if (orderId) {
-      return (<Order />)
+      return (<SingleOrder />)
     }
 
     return (<AllOrders />)

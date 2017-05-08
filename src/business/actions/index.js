@@ -6,33 +6,22 @@ export const DESELECT_ORDER = 'DESELECT_ORDER'
 export const REQUEST_ORDERS_LIST = 'REQUEST_ORDERS_LIST'
 export const RECEIVE_ORDERS_LIST = 'RECEIVE_ORDERS_LIST'
 
+export const REQUEST_ORDER = 'REQUEST_ORDER'
+export const RECEIVE_ORDER = 'RECEIVE_ORDER'
+
 const actions = {
   order: {
-    select: (orderId) => ({
-      type: SELECT_ORDER,
-      orderId
-    }),
-    deselect: () => ({
-      type: DESELECT_ORDER
-    })
+    select: (orderId) => ({ type: SELECT_ORDER, orderId }),
+    deselect: () => ({ type: DESELECT_ORDER }),
+
+    request: (orderId) => ({ type: REQUEST_ORDER, orderId }),
+    receive: (order) => ({ type: RECEIVE_ORDER, order })
   },
+
   ordersList: {
-    request: () => ({
-      type: REQUEST_ORDERS_LIST
-    }),
-    receive: (orders) => ({
-      type: RECEIVE_ORDERS_LIST,
-      orders
-    })
+    request: () => ({ type: REQUEST_ORDERS_LIST }),
+    receive: (orders) => ({ type: RECEIVE_ORDERS_LIST, orders })
   }
-}
-
-export const selectOrder = (dispatch, orderId) => {
-  dispatch(actions.order.select(orderId))
-}
-
-export const deselectOrder = (dispatch) => {
-  dispatch(actions.order.deselect())
 }
 
 const service = CoffeeShop()
@@ -45,8 +34,26 @@ export const fetchOrdersList = (dispatch) => {
     })
 }
 
+export const fetchOrder = (dispatch, orderId) => {
+  dispatch(actions.order.request(orderId))
+  return service.getOrder(orderId)
+    .then((json) => {
+      return dispatch(actions.order.receive(json))
+    })
+}
+
+export const selectOrder = (dispatch, orderId) => {
+  dispatch(actions.order.select(orderId))
+  fetchOrder(dispatch, orderId)
+}
+
+export const deselectOrder = (dispatch) => {
+  dispatch(actions.order.deselect())
+}
+
 export default {
   selectOrder,
   deselectOrder,
-  fetchOrdersList
+  fetchOrdersList,
+  fetchOrder
 }
