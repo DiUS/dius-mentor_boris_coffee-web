@@ -153,5 +153,37 @@ describe('CoffeeShop service (orders)', () => {
         .catch(fail)
       )
     })
+
+    describe('fails to get one order', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'no orders',
+          uponReceiving: 'request to get a specific order',
+          withRequest: {
+            method: 'GET',
+            path: '/order/999',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 404,
+            headers: responseHeaders,
+            body: {
+              message: 'Order with id 999 not found',
+              path: '/order/999'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.getOrder(999)
+      // then:
+        .then(fail)
+        .catch(({ message }) => {
+          expect(message).to.eql('Order with id 999 not found')
+        })
+      )
+    })
   })
 })
