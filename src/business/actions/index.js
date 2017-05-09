@@ -32,6 +32,7 @@ const actions = {
 
 export const deselectOrder = (dispatch) => {
   dispatch(actions.order.deselect())
+  dispatch(actions.order.receive(null))
 }
 
 const service = CoffeeShop()
