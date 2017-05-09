@@ -6,7 +6,7 @@ import actions from '../../business/actions'
 class CoffeeSummary extends Component {
 
   select () {
-    actions.selectCoffee(this.props.dispatch, this.props.id)
+    actions.selectCoffee(this.props.dispatch, this.props.orderId, this.props.id)
   }
 
   render () {
@@ -24,7 +24,8 @@ class CoffeeSummary extends Component {
 CoffeeSummary.propTypes = {
   id: PropTypes.number.isRequired,
   summary: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  orderId: PropTypes.number.isRequired
 }
 
 export default CoffeeSummary

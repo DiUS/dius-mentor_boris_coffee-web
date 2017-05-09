@@ -11,7 +11,7 @@ const mimeAppJson = 'application/json'
 const requestHeaders = { 'Accept': mimeAppJson }
 const responseHeaders = { 'Content-Type': mimeAppJson }
 
-describe('CoffeeShop service (orders)', () => {
+describe('CoffeeShop service', () => {
   const client = CoffeeShop(`http://localhost:${port}`)
 
   let provider = pact({
@@ -26,7 +26,7 @@ describe('CoffeeShop service (orders)', () => {
   beforeAll(() => provider.setup(), mockServerStartupTimeout)
   afterAll(() => provider.finalize())
 
-  describe('orders', () => {
+  describe('Order', () => {
     beforeEach(() => provider.removeInteractions())
     afterEach(() => provider.verify())
 
@@ -218,6 +218,85 @@ describe('CoffeeShop service (orders)', () => {
           expect(body).to.eql({
             id: 19,
             path: '/order/19'
+          })
+        })
+        .catch(fail)
+      )
+    })
+
+    describe('fails to name an order', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'no orders',
+          uponReceiving: 'request to change order name',
+          withRequest: {
+            method: 'PATCH',
+            path: '/order/777',
+            headers: requestHeaders,
+            body: {
+              name: 'No Face'
+            }
+          },
+          willRespondWith: {
+            status: 404,
+            headers: responseHeaders,
+            body: {
+              message: 'Order with id 777 not found',
+              path: '/order/777'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.nameOrder(777, 'No Face')
+      // then:
+        .then(fail)
+        .catch(({ message }) => {
+          expect(message).to.eql('Order with id 777 not found')
+        })
+      )
+    })
+  })
+
+  describe('Coffee', () => {
+    beforeEach(() => provider.removeInteractions())
+    afterEach(() => provider.verify())
+
+    describe('gets a coffee', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'order 43 with coffee 59',
+          uponReceiving: 'request to fetch a coffee',
+          withRequest: {
+            method: 'GET',
+            path: '/order/43/coffee/59',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 59,
+              style: like('Magic'),
+              size: like('Regular'),
+              path: '/order/43/coffee/59'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.getCoffee(43, 59)
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 59,
+            style: 'Magic',
+            size: 'Regular',
+            path: '/order/43/coffee/59'
           })
         })
         .catch(fail)

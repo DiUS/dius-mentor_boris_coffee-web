@@ -9,8 +9,8 @@ class OrderName extends Component {
     return this.formName(this.props.name)
   }
 
-  staticName (name) {
-    return (<div className='order-name no-card'>{name}</div>)
+  staticName () {
+    return (<div className='order-name no-card'>{this.props.name}</div>)
   }
 
   setName (e) {
@@ -19,10 +19,16 @@ class OrderName extends Component {
     actions.renameOrder(this.props.dispatch, this.props.id, name)
   }
 
-  formName (name) {
+  formName () {
     return (
       <form className='form-card' onSubmit={(e) => this.setName(e)}>
-        <input name='name' className='order-name form-card' type='text' placeholder='Name' defaultValue={name} />
+        <input
+          name='name'
+          className='order-name form-card'
+          type='text'
+          placeholder='Name'
+          defaultValue={this.props.name}
+        />
       </form>
     )
   }

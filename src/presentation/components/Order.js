@@ -8,7 +8,7 @@ import OrderNameContainer from '../containers/OrderNameContainer'
 class Order extends Component {
 
   render () {
-    const { coffees } = this.props
+    const { coffees, id, dispatch } = this.props
     if (!coffees) {
       return (<Loading />)
     }
@@ -18,7 +18,7 @@ class Order extends Component {
         <OrderNameContainer />
         <div className='coffees-list'>
           {coffees.map((it, i) =>
-            <CoffeeSummary {...it} dispatch={this.props.dispatch} key={i} />
+            <CoffeeSummary {...it} orderId={id} dispatch={dispatch} key={i} />
           )}
         </div>
       </div>
@@ -31,7 +31,8 @@ Order.propTypes = {
   coffees: PropTypes.arrayOf(PropTypes.shape({
     summary: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired
-  }))
+  })),
+  id: PropTypes.number.isRequired
 }
 
 export default Order
