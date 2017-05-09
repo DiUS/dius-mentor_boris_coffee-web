@@ -34,9 +34,10 @@ const CoffeeShop = (url = baseUrl) => ({
   // orders
   listOrders: () => wrapRequest(`${url}/order`),
   getOrder: (orderId) => wrapRequest(`${url}/order/${orderId}`),
-  nameOrder: (orderId, name) => wrapRequest(`${url}/order/${orderId}`, PATCH, { name })
+  nameOrder: (orderId, name) => wrapRequest(`${url}/order/${orderId}`, PATCH, { name }),
 
   // coffees
+  getCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`)
 
 })
 

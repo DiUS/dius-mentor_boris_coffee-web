@@ -15,10 +15,16 @@ export const RECEIVE_ORDER = 'RECEIVE_ORDER'
 export const REQUEST_ORDER_RENAME = 'REQUEST_ORDER_RENAME'
 export const RECEIVE_ORDER_RENAME_OK = 'RECEIVE_ORDER_RENAME_OK'
 
+export const REQUEST_COFFEE = 'REQUEST_COFFEE'
+export const RECEIVE_COFFEE = 'RECEIVE_COFFEE'
+
 const actions = {
   coffee: {
     select: (coffeeId) => ({ type: SELECT_COFFEE, coffeeId }),
-    deselect: () => ({ type: DESELECT_COFFEE })
+    deselect: () => ({ type: DESELECT_COFFEE }),
+
+    request: (orderId, coffeeId) => ({ type: REQUEST_COFFEE, orderId, coffeeId }),
+    receive: (coffee) => ({ type: RECEIVE_COFFEE, coffee })
   },
 
   order: {
@@ -38,22 +44,31 @@ const actions = {
   }
 }
 
-export const deselectCoffee = (dispatch) => {
-  dispatch(actions.coffee.deselect())
+const toExport = {}
+
+toExport.selectOrder = (dispatch, orderId) => {
+  dispatch(actions.order.select(orderId))
+  toExport.fetchOrder(dispatch, orderId)
 }
 
-export const selectCoffee = (dispatch, coffeeId) => {
-  dispatch(actions.coffee.select(coffeeId))
-}
-
-export const deselectOrder = (dispatch) => {
+toExport.deselectOrder = (dispatch) => {
   dispatch(actions.order.deselect())
   dispatch(actions.order.receive(null))
 }
 
+toExport.selectCoffee = (dispatch, orderId, coffeeId) => {
+  dispatch(actions.coffee.select(orderId, coffeeId))
+  toExport.fetchCoffee(dispatch, orderId, coffeeId)
+}
+
+toExport.deselectCoffee = (dispatch) => {
+  dispatch(actions.coffee.deselect())
+  dispatch(actions.coffee.receive(null))
+}
+
 const service = CoffeeShop()
 
-export const fetchOrdersList = (dispatch) => {
+toExport.fetchOrdersList = (dispatch) => {
   dispatch(actions.ordersList.request())
   return service.listOrders()
     .catch((error) => {
@@ -65,12 +80,12 @@ export const fetchOrdersList = (dispatch) => {
     })
 }
 
-export const fetchOrder = (dispatch, orderId) => {
+toExport.fetchOrder = (dispatch, orderId) => {
   dispatch(actions.order.request(orderId))
   return service.getOrder(orderId)
     .catch((error) => {
       console.log(error)
-      deselectOrder(dispatch)
+      toExport.deselectOrder(dispatch)
       return null
     })
     .then((json) => {
@@ -78,12 +93,7 @@ export const fetchOrder = (dispatch, orderId) => {
     })
 }
 
-export const selectOrder = (dispatch, orderId) => {
-  dispatch(actions.order.select(orderId))
-  fetchOrder(dispatch, orderId)
-}
-
-export const renameOrder = (dispatch, orderId, name) => {
+toExport.renameOrder = (dispatch, orderId, name) => {
   dispatch(actions.order.rename(orderId, name))
   return service.nameOrder(orderId, name)
     .catch((error) => {
@@ -97,12 +107,17 @@ export const renameOrder = (dispatch, orderId, name) => {
     })
 }
 
-export default {
-  selectCoffee,
-  deselectCoffee,
-  selectOrder,
-  deselectOrder,
-  fetchOrdersList,
-  fetchOrder,
-  renameOrder
+toExport.fetchCoffee = (dispatch, orderId, coffeeId) => {
+  dispatch(actions.coffee.request(orderId, coffeeId))
+  return service.getCoffee(orderId, coffeeId)
+    .catch((error) => {
+      console.log(error)
+      toExport.deselectCoffee(dispatch)
+      return null
+    })
+    .then((json) => {
+      return dispatch(actions.coffee.receive(json))
+    })
 }
+
+export default toExport
