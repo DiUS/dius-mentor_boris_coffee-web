@@ -1,5 +1,6 @@
 import {
-  SELECT_ORDER, DESELECT_ORDER
+  SELECT_ORDER, DESELECT_ORDER,
+  SELECT_COFFEE, DESELECT_COFFEE
 } from '../actions'
 
 const initialState = {
@@ -15,6 +16,12 @@ const selected = (state = initialState, action) => {
 
     case DESELECT_ORDER:
       return { ...state, orderId: null }
+
+    case SELECT_COFFEE:
+      return { ...state, coffeeId: action.coffeeId }
+
+    case DESELECT_COFFEE:
+      return { ...state, coffeeId: null }
 
     default:
       return state

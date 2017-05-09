@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import actions from '../../business/actions'
+
 class CoffeeSummary extends Component {
 
   select () {
+    actions.selectCoffee(this.props.dispatch, this.props.id)
   }
 
   render () {

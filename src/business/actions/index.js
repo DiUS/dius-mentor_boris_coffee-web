@@ -3,6 +3,9 @@ import CoffeeShop from '../../data/service/CoffeeShop'
 export const SELECT_ORDER = 'SELECT_ORDER'
 export const DESELECT_ORDER = 'DESELECT_ORDER'
 
+export const SELECT_COFFEE = 'SELECT_COFFEE'
+export const DESELECT_COFFEE = 'DESELECT_COFFEE'
+
 export const REQUEST_ORDERS_LIST = 'REQUEST_ORDERS_LIST'
 export const RECEIVE_ORDERS_LIST = 'RECEIVE_ORDERS_LIST'
 
@@ -13,6 +16,11 @@ export const REQUEST_ORDER_RENAME = 'REQUEST_ORDER_RENAME'
 export const RECEIVE_ORDER_RENAME_OK = 'RECEIVE_ORDER_RENAME_OK'
 
 const actions = {
+  coffee: {
+    select: (coffeeId) => ({ type: SELECT_COFFEE, coffeeId }),
+    deselect: () => ({ type: DESELECT_COFFEE })
+  },
+
   order: {
     select: (orderId) => ({ type: SELECT_ORDER, orderId }),
     deselect: () => ({ type: DESELECT_ORDER }),
@@ -28,6 +36,14 @@ const actions = {
     request: () => ({ type: REQUEST_ORDERS_LIST }),
     receive: (orders) => ({ type: RECEIVE_ORDERS_LIST, orders })
   }
+}
+
+export const deselectCoffee = (dispatch) => {
+  dispatch(actions.coffee.deselect())
+}
+
+export const selectCoffee = (dispatch, coffeeId) => {
+  dispatch(actions.coffee.select(coffeeId))
 }
 
 export const deselectOrder = (dispatch) => {
@@ -82,6 +98,8 @@ export const renameOrder = (dispatch, orderId, name) => {
 }
 
 export default {
+  selectCoffee,
+  deselectCoffee,
   selectOrder,
   deselectOrder,
   fetchOrdersList,

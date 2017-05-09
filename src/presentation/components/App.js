@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import actions from '../../business/actions'
 import AllOrders from './AllOrders'
 import SingleOrder from './SingleOrder'
+import SingleCoffee from './SingleCoffee'
 
 class App extends Component {
 
@@ -18,9 +19,7 @@ class App extends Component {
   render () {
     const { orderId, coffeeId } = this.props
     if (coffeeId) {
-      return (
-        <div>Placeholder: edit coffee {coffeeId}</div>
-      )
+      return (<SingleCoffee />)
     }
 
     if (orderId) {
