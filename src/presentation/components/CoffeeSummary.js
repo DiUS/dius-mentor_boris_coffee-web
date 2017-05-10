@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import DeleteX from './DeleteX'
 import actions from '../../business/actions'
 
 class CoffeeSummary extends Component {
@@ -9,12 +10,15 @@ class CoffeeSummary extends Component {
     actions.selectCoffee(this.props.dispatch, this.props.orderId, this.props.id)
   }
 
+  cancel () {
+    actions.cancelCoffee(this.props.dispatch, this.props.orderId, this.props.id)
+  }
+
   render () {
-    const { summary } = this.props
     return (
       <div className='coffee-summary card' onClick={(e) => this.select(e)}>
-        <span className='delete-card'>✕</span>
-        <div className='coffee-summary'>{summary}</div>
+        <DeleteX onClick={(e) => this.cancel(e)} />
+        <div className='coffee-summary'>{this.props.summary}</div>
       </div>
     )
   }

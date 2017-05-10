@@ -258,6 +258,41 @@ describe('CoffeeShop service', () => {
         })
       )
     })
+
+    describe('cancels an order', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'empty order 19',
+          uponReceiving: 'request to cancel the order',
+          withRequest: {
+            method: 'DELETE',
+            path: '/order/19',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 19,
+              path: '/order/19'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.cancelOrder(19)
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 19,
+            path: '/order/19'
+          })
+        })
+        .catch(fail)
+      )
+    })
   })
 
   describe('Coffee', () => {
@@ -368,6 +403,41 @@ describe('CoffeeShop service', () => {
 
       // when:
       it('', () => client.updateCoffee(43, 59, { size: 'Piccolo' })
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 59,
+            path: '/order/43/coffee/59'
+          })
+        })
+        .catch(fail)
+      )
+    })
+
+    describe('cancels a coffee', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'order 43 with coffee 59',
+          uponReceiving: 'request to cancel coffee',
+          withRequest: {
+            method: 'DELETE',
+            path: '/order/43/coffee/59',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 59,
+              path: '/order/43/coffee/59'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.cancelCoffee(43, 59)
       // then:
         .then((body) => {
           expect(body).to.eql({
