@@ -302,5 +302,81 @@ describe('CoffeeShop service', () => {
         .catch(fail)
       )
     })
+
+    describe("updates a coffee's style", () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'order 43 with coffee 59',
+          uponReceiving: 'request to change coffee style',
+          withRequest: {
+            method: 'PATCH',
+            path: '/order/43/coffee/59',
+            headers: requestHeaders,
+            body: {
+              style: 'Latte'
+            }
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 59,
+              path: '/order/43/coffee/59'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.updateCoffee(43, 59, { style: 'Latte' })
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 59,
+            path: '/order/43/coffee/59'
+          })
+        })
+        .catch(fail)
+      )
+    })
+
+    describe("updates a coffee's size", () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'order 43 with coffee 59',
+          uponReceiving: 'request to change coffee size',
+          withRequest: {
+            method: 'PATCH',
+            path: '/order/43/coffee/59',
+            headers: requestHeaders,
+            body: {
+              size: 'Piccolo'
+            }
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              id: 59,
+              path: '/order/43/coffee/59'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.updateCoffee(43, 59, { size: 'Piccolo' })
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 59,
+            path: '/order/43/coffee/59'
+          })
+        })
+        .catch(fail)
+      )
+    })
   })
 })
