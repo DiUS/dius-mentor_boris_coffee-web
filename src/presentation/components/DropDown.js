@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+const capitalise = (value) => value.charAt(0).toUpperCase() + value.slice(1)
+
 class DropDown extends Component {
 
   render () {
     const { name, value, options, onChange } = this.props
     return (
-      <form className='form-card'>
+      <form className='select-card'>
+        <span className='form-label'>{capitalise(name)}:</span>
         <select
           name={name}
-          className={`coffee-${name} form-card`}
+          className={`coffee-${name} select-card`}
           value={value}
           onChange={(e) => onChange(e)}
         >
