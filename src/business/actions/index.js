@@ -6,6 +6,9 @@ export const DESELECT_ORDER = 'DESELECT_ORDER'
 export const SELECT_COFFEE = 'SELECT_COFFEE'
 export const DESELECT_COFFEE = 'DESELECT_COFFEE'
 
+export const REQUEST_MENU_COFFEE = 'REQUEST_MENU_COFFEE'
+export const RECEIVE_MENU_COFFEE = 'RECEIVE_MENU_COFFEE'
+
 export const REQUEST_ORDERS_LIST = 'REQUEST_ORDERS_LIST'
 export const RECEIVE_ORDERS_LIST = 'RECEIVE_ORDERS_LIST'
 
@@ -53,6 +56,13 @@ const actions = {
   ordersList: {
     request: () => ({ type: REQUEST_ORDERS_LIST }),
     receive: (orders) => ({ type: RECEIVE_ORDERS_LIST, orders })
+  },
+
+  menu: {
+    coffee: {
+      request: () => ({ type: REQUEST_MENU_COFFEE }),
+      receive: (menu) => ({ type: RECEIVE_MENU_COFFEE, menu })
+    }
   }
 }
 
@@ -89,6 +99,18 @@ toExport.deselectCoffee = (dispatch) => {
 }
 
 const service = CoffeeShop()
+
+toExport.fetchCoffeeMenu = (dispatch) => {
+  dispatch(actions.menu.coffee.request())
+  return service.getCoffeeMenu()
+    .catch((error) => {
+      console.log(error)
+      return null
+    })
+    .then((json) => {
+      return dispatch(actions.menu.coffee.receive(json))
+    })
+}
 
 toExport.fetchOrdersList = (dispatch) => {
   dispatch(actions.ordersList.request())

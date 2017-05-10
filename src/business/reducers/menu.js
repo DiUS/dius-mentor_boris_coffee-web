@@ -1,10 +1,20 @@
+import { RECEIVE_MENU_COFFEE } from '../actions'
+
 const initialState = {
-  size: [ 'lol', 'face', 'Regular' ],
-  style: [ 'Latte', 'cap', 'chai' ]
+  size: [],
+  style: []
 }
 
 const menu = (state = initialState, action) => {
-  return state
+  switch (action.type) {
+
+    case RECEIVE_MENU_COFFEE:
+      return action.menu
+
+    default:
+      return state
+
+  }
 }
 
 export default menu
