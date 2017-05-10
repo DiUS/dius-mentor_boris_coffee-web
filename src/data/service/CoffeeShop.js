@@ -4,6 +4,7 @@ import { baseUrl } from '../../config'
 const mimeJson = 'application/json'
 const headers = { 'Content-Type': mimeJson, 'Accept': mimeJson }
 const GET = 'GET'
+const POST = 'POST'
 const PATCH = 'PATCH'
 const DELETE = 'DELETE'
 
@@ -39,6 +40,7 @@ const CoffeeShop = (url = baseUrl) => ({
   nameOrder: (orderId, name) => wrapRequest(`${url}/order/${orderId}`, PATCH, { name }),
 
   // coffees
+  addCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee`, POST),
   getCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`),
   cancelCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`, DELETE),
   updateCoffee: (orderId, coffeeId, attribs) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`, PATCH, attribs),

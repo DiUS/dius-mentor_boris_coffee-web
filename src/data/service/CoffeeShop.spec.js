@@ -338,6 +338,41 @@ describe('CoffeeShop service', () => {
       )
     })
 
+    describe('adds a coffee', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'empty order 19',
+          uponReceiving: 'request to add a coffee',
+          withRequest: {
+            method: 'POST',
+            path: '/order/19/coffee',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 201,
+            headers: responseHeaders,
+            body: {
+              id: like(37),
+              path: like('/order/19/coffee/37')
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.addCoffee(19)
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 37,
+            path: '/order/19/coffee/37'
+          })
+        })
+        .catch(fail)
+      )
+    })
+
     describe("updates a coffee's style", () => {
       // given:
       beforeEach(() =>
