@@ -379,4 +379,79 @@ describe('CoffeeShop service', () => {
       )
     })
   })
+
+  describe('Menu', () => {
+    beforeEach(() => provider.removeInteractions())
+    afterEach(() => provider.verify())
+
+    describe('gets the base menu', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'no orders',
+          uponReceiving: 'request to fetch the menu',
+          withRequest: {
+            method: 'GET',
+            path: '/menu',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              coffee: '/menu/coffee',
+              path: '/menu'
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.getMenu()
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            coffee: '/menu/coffee',
+            path: '/menu'
+          })
+        })
+        .catch(fail)
+      )
+    })
+
+    describe('gets the coffee menu', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'no orders',
+          uponReceiving: 'request to fetch the coffee menu',
+          withRequest: {
+            method: 'GET',
+            path: '/menu/coffee',
+            headers: requestHeaders
+          },
+          willRespondWith: {
+            status: 200,
+            headers: responseHeaders,
+            body: {
+              style: eachLike(like('Latte'), { min: 3 }),
+              size: eachLike(like('Regular'), { min: 1 })
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.getCoffeeMenu()
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            style: [ 'Latte', 'Latte', 'Latte' ],
+            size: [ 'Regular' ]
+          })
+        })
+        .catch(fail)
+      )
+    })
+  })
 })
