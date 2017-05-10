@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Loading from './Loading'
+import DropDown from './DropDown'
+
+import actions from '../../business/actions'
+const setMap = {
+  style: actions.setCoffeeStyle,
+  size: actions.setCoffeeSize
+}
 
 class Coffee extends Component {
 
@@ -12,65 +19,40 @@ class Coffee extends Component {
 
     return (
       <div className='coffee'>
-        {this.formStyle()}
-        {this.formSize()}
+        {this.renderDD('style')}
+        {this.renderDD('size')}
       </div>
     )
   }
 
-  setStyle (e) {
-  }
-
-  formStyle () {
+  renderDD (name) {
     return (
-      <form className='form-card'>
-        <select
-          name='style'
-          className='coffee-style form-card'
-          value={this.props.coffee.style}
-          onChange={(e) => this.setStyle(e)}
-        >
-          <option key='empty' />
-          {this.props.menu.style.map(it => (
-            <option key={it}>
-              {it}
-            </option>
-          ))}
-        </select>
-      </form>
+      <DropDown
+        name={name}
+        value={this.props.coffee[name]}
+        options={this.props.menu[name]}
+        onChange={this.onChangeSelect(name, setMap[name])}
+      />
     )
   }
 
-  setSize (e) {
-  }
-
-  formSize () {
-    return (
-      <form className='form-card'>
-        <select
-          name='size'
-          className='coffee-size form-card'
-          value={this.props.coffee.size}
-          onChange={(e) => this.setSize(e)}
-        >
-          <option key='empty' />
-          {this.props.menu.size.map(it => (
-            <option key={it}>
-              {it}
-            </option>
-          ))}
-        </select>
-      </form>
-    )
+  onChangeSelect (name, action) {
+    return (e) => {
+      const value = e.target.value
+      const { dispatch, orderId, coffee } = this.props
+      action(dispatch, orderId, coffee.id, value)
+    }
   }
 
 }
 
 Coffee.propTypes = {
   coffee: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     style: PropTypes.string.isRequired,
     size: PropTypes.string.isRequired
   }),
+  orderId: PropTypes.number.isRequired,
   menu: PropTypes.shape({
     style: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     size: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired

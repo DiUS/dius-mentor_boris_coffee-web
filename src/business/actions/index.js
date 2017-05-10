@@ -18,13 +18,25 @@ export const RECEIVE_ORDER_RENAME_OK = 'RECEIVE_ORDER_RENAME_OK'
 export const REQUEST_COFFEE = 'REQUEST_COFFEE'
 export const RECEIVE_COFFEE = 'RECEIVE_COFFEE'
 
+export const REQUEST_COFFEE_SET_STYLE = 'REQUEST_COFFEE_SET_STYLE'
+export const RECEIVE_COFFEE_SET_STYLE_OK = 'RECEIVE_COFFEE_SET_STYLE_OK'
+
+export const REQUEST_COFFEE_SET_SIZE = 'REQUEST_COFFEE_SET_SIZE'
+export const RECEIVE_COFFEE_SET_SIZE_OK = 'RECEIVE_COFFEE_SET_SIZE_OK'
+
 const actions = {
   coffee: {
     select: (coffeeId) => ({ type: SELECT_COFFEE, coffeeId }),
     deselect: () => ({ type: DESELECT_COFFEE }),
 
     request: (orderId, coffeeId) => ({ type: REQUEST_COFFEE, orderId, coffeeId }),
-    receive: (coffee) => ({ type: RECEIVE_COFFEE, coffee })
+    receive: (coffee) => ({ type: RECEIVE_COFFEE, coffee }),
+
+    setStyle: (orderId, coffeeId, style) => ({ type: REQUEST_COFFEE_SET_STYLE, orderId, coffeeId, style }),
+    setStyleOk: (coffeeId, style) => ({ type: RECEIVE_COFFEE_SET_STYLE_OK, coffeeId, style }),
+
+    setSize: (orderId, coffeeId, size) => ({ type: REQUEST_COFFEE_SET_SIZE, orderId, coffeeId, size }),
+    setSizeOk: (coffeeId, size) => ({ type: RECEIVE_COFFEE_SET_SIZE_OK, coffeeId, size })
   },
 
   order: {
@@ -46,12 +58,22 @@ const actions = {
 
 const toExport = {}
 
+const refreshOrdersList = (dispatch) => {
+  toExport.fetchOrdersList(dispatch)
+}
+
+const refreshOrder = (dispatch, orderId) => {
+  dispatch(actions.order.receive(null))
+  toExport.fetchOrder(dispatch, orderId)
+}
+
 toExport.selectOrder = (dispatch, orderId) => {
   dispatch(actions.order.select(orderId))
   toExport.fetchOrder(dispatch, orderId)
 }
 
 toExport.deselectOrder = (dispatch) => {
+  refreshOrdersList(dispatch)
   dispatch(actions.order.deselect())
   dispatch(actions.order.receive(null))
 }
@@ -117,6 +139,38 @@ toExport.fetchCoffee = (dispatch, orderId, coffeeId) => {
     })
     .then((json) => {
       return dispatch(actions.coffee.receive(json))
+    })
+}
+
+toExport.setCoffeeStyle = (dispatch, orderId, coffeeId, style) => {
+  dispatch(actions.coffee.setStyle(orderId, coffeeId, style))
+  return service.updateCoffee(orderId, coffeeId, { style })
+    .catch((error) => {
+      console.log(error)
+      toExport.deselectCoffee(dispatch)
+      return null
+    })
+    .then((json) => {
+      if (json) {
+        refreshOrder(dispatch, orderId)
+        return dispatch(actions.coffee.setStyleOk(coffeeId, style))
+      }
+    })
+}
+
+toExport.setCoffeeSize = (dispatch, orderId, coffeeId, size) => {
+  dispatch(actions.coffee.setSize(orderId, coffeeId, size))
+  return service.updateCoffee(orderId, coffeeId, { size })
+    .catch((error) => {
+      console.log(error)
+      toExport.deselectCoffee(dispatch)
+      return null
+    })
+    .then((json) => {
+      if (json) {
+        refreshOrder(dispatch, orderId)
+        return dispatch(actions.coffee.setSizeOk(coffeeId, size))
+      }
     })
 }
 
