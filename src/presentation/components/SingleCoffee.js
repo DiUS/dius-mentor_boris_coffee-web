@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-
+import { View } from 'react-native'
 import Title from './Title'
 import CoffeeBackContainer from '../containers/CoffeeBackContainer'
 import CoffeeContainer from '../containers/CoffeeContainer'
+import Style from './style'
 
 class SingleCoffee extends Component {
   render () {
     return (
-      <div className='coffee'>
+      <View style={Style.coffee}>
         <CoffeeBackContainer />
         <Title text='Coffee' />
         <CoffeeContainer />
-      </div>
+      </View>
     )
   }
 }

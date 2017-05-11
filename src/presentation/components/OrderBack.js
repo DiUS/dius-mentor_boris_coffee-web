@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { View, Text, TouchableHighlight } from 'react-native'
 
 import actions from '../../business/actions'
+import Style from './style'
 
 class OrderBack extends Component {
 
@@ -10,7 +12,11 @@ class OrderBack extends Component {
 
   render () {
     return (
-      <h1 className='title nav-back' onClick={(e) => this.back(e)}>‹</h1>
+      <TouchableHighlight onPress={(e) => this.back(e)}>
+        <View>
+          <Text style={[Style.title,Style.navBack, Style.fill]}>‹</Text>
+        </View>
+      </TouchableHighlight>
     )
   }
 

@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import OrderSummary from './OrderSummary'
+import { View } from 'react-native'
+import Style from './style'
 
 class OrdersList extends Component {
   render () {
     return (
-      <div className='orders-list'>
+      <View style={Style.ordersList}>
         {this.props.orders.map((it, i) =>
           <OrderSummary {...it} dispatch={this.props.dispatch} key={i} />
         )}
-      </div>
+      </View>
     )
   }
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Loading from './Loading'
+import { View, Picker, Item } from 'react-native'
+import Style from './style'
 
 class Coffee extends Component {
 
@@ -11,10 +13,10 @@ class Coffee extends Component {
     }
 
     return (
-      <div className='coffee'>
+      <View style={Style.coffee}>
         {this.formStyle()}
         {this.formSize()}
-      </div>
+      </View>
     )
   }
 
@@ -23,21 +25,15 @@ class Coffee extends Component {
 
   formStyle () {
     return (
-      <form className='form-card'>
-        <select
-          name='style'
-          className='coffee-style form-card'
-          value={this.props.coffee.style}
-          onChange={(e) => this.setStyle(e)}
-        >
-          <option key='empty' />
-          {this.props.menu.style.map(it => (
-            <option key={it}>
-              {it}
-            </option>
-          ))}
-        </select>
-      </form>
+      <Picker
+        style={[Style.fill,Style.formCardContainer]}
+        selectedValue={this.props.coffee.style}
+        onChangeValue={(e) => this.setStyle(e)}>
+        <Item label='empty' value='empty'/>
+        {this.props.menu.style.map(it => (
+          <Item label={it} value={it}/>
+        ))}
+      </Picker>
     )
   }
 
@@ -46,21 +42,15 @@ class Coffee extends Component {
 
   formSize () {
     return (
-      <form className='form-card'>
-        <select
-          name='size'
-          className='coffee-size form-card'
-          value={this.props.coffee.size}
-          onChange={(e) => this.setSize(e)}
-        >
-          <option key='empty' />
-          {this.props.menu.size.map(it => (
-            <option key={it}>
-              {it}
-            </option>
-          ))}
-        </select>
-      </form>
+      <Picker
+        style={[Style.fill,Style.formCardContainer]}
+        selectedValue={this.props.coffee.size}
+        onChangeValue={(e) => this.setSize(e)}>
+        <Item label='empty' value='empty'/>
+        {this.props.menu.size.map(it => (
+          <Item label={it} value={it}/>
+        ))}
+      </Picker>
     )
   }
 

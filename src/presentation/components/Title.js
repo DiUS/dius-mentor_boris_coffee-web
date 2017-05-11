@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Text } from 'react-native'
 import PropTypes from 'prop-types'
+import Style from './style'
 
 class Title extends Component {
   render () {
-    return (<h1 className='title'>{this.props.text}</h1>)
+    return (<Text style={Style.title}>{this.props.text}</Text>)
   }
 }
 

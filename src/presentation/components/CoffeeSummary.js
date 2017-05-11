@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { Text, View, Button, TouchableHighlight } from 'react-native'
 import PropTypes from 'prop-types'
 
 import actions from '../../business/actions'
+import Style from './style'
 
 class CoffeeSummary extends Component {
 
@@ -12,10 +14,18 @@ class CoffeeSummary extends Component {
   render () {
     const { summary } = this.props
     return (
-      <div className='coffee-summary card' onClick={(e) => this.select(e)}>
-        <span className='delete-card'>✕</span>
-        <div className='coffee-summary'>{summary}</div>
-      </div>
+      <View style={Style.rowContainer}>
+        <View style={Style.fill}>
+          <TouchableHighlight style={Style.orderRow} onPress={(e) => this.select(e)}>
+            <View>
+              <Text style={Style.orderName}>{summary}</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View style={Style.deleteCard}>
+          <Button title={'X'} color='red'/>
+        </View>
+      </View>
     )
   }
 

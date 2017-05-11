@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Loading from './Loading'
 import CoffeeSummary from './CoffeeSummary'
 import OrderNameContainer from '../containers/OrderNameContainer'
+import Style from './style'
 
 class Order extends Component {
 
@@ -14,14 +16,14 @@ class Order extends Component {
     }
 
     return (
-      <div className='order'>
+      <View>
         <OrderNameContainer />
-        <div className='coffees-list'>
+        <View style={Style.coffeesList}>
           {coffees.map((it, i) =>
             <CoffeeSummary {...it} orderId={id} dispatch={dispatch} key={i} />
           )}
-        </div>
-      </div>
+        </View>
+      </View>
     )
   }
 
