@@ -39,6 +39,12 @@ module.exports = StyleSheet.create({
   coffeeStyle:{
 
   },
+  addButton: {
+    flex: 1;
+    justifyContent: 'flex-end';
+    margin: 8;
+    padding: 8;
+  },
   orderRow:{
     flex: 1,
     justifyContent: 'center',
