@@ -40,7 +40,7 @@ const CoffeeShop = (url = baseUrl) => ({
   nameOrder: (orderId, name) => wrapRequest(`${url}/order/${orderId}`, PATCH, { name }),
 
   // coffees
-  addCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee`, POST),
+  addCoffee: (orderId, style = 'Latte') => wrapRequest(`${url}/order/${orderId}/coffee`, POST, { style }),
   getCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`),
   cancelCoffee: (orderId, coffeeId) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`, DELETE),
   updateCoffee: (orderId, coffeeId, attribs) => wrapRequest(`${url}/order/${orderId}/coffee/${coffeeId}`, PATCH, attribs),
