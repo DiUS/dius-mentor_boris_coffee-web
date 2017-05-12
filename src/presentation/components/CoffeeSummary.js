@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, Button, TouchableHighlight } from 'react-native'
 import PropTypes from 'prop-types'
 
+import DeleteX from './DeleteX'
 import actions from '../../business/actions'
 import Style from './style'
 
@@ -11,12 +12,11 @@ class CoffeeSummary extends Component {
     actions.selectCoffee(this.props.dispatch, this.props.orderId, this.props.id)
   }
 
-  delete() {
-
+  cancel () {
+    actions.cancelCoffee(this.props.dispatch, this.props.orderId, this.props.id)
   }
 
   render () {
-    const { summary } = this.props
     return (
       <View style={Style.rowContainer}>
         <View style={Style.fill}>
@@ -27,7 +27,7 @@ class CoffeeSummary extends Component {
           </TouchableHighlight>
         </View>
         <View style={Style.deleteCard}>
-          <Button title={'X'} color='red' onPress={(e) => this.delete(e)}/>
+          <Button title={'X'} color='red' onPress={(e) => this.cancel(e)}/>
         </View>
       </View>
     )

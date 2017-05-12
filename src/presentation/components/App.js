@@ -10,10 +10,15 @@ class App extends Component {
 
   componentDidMount () {
     this.fetchOrdersList()
+    this.fetchMenu()
   }
 
   fetchOrdersList () {
     actions.fetchOrdersList(this.props.dispatch)
+  }
+
+  fetchMenu () {
+    actions.fetchCoffeeMenu(this.props.dispatch)
   }
 
   render () {

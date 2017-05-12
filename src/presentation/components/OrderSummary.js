@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, View, Button, TouchableHighlight } from 'react-native'
 import Style from './style'
 
+import DeleteX from './DeleteX'
 import actions from '../../business/actions'
 
 class OrderSummary extends Component {
@@ -11,8 +12,8 @@ class OrderSummary extends Component {
     actions.selectOrder(this.props.dispatch, this.props.id)
   }
 
-  delete() {
-
+  cancel () {
+    actions.cancelOrder(this.props.dispatch, this.props.id)
   }
 
   render () {
@@ -30,7 +31,7 @@ class OrderSummary extends Component {
           </TouchableHighlight>
         </View>
         <View style={Style.deleteCard}>
-          <Button title={'X'} color='red' onPress={(e) => this.delete(e)}/>
+          <Button title={'X'} color='red' onPress={(e) => this.cancel(e)}/>
         </View>
       </View>
     )

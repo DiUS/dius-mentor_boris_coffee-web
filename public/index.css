@@ -41,6 +41,19 @@ input.form-card {
   box-sizing: border-box;
   font-size: 1.0rem;
 }
+form.select-card {
+  border: 1px solid lightgrey;
+  margin: 0.5rem;
+  padding: 0.37rem;
+}
+select.select-card {
+  font-size: 0.9rem;
+  width: 10rem;
+}
+.form-label {
+  display: inline-block;
+  width: 3rem;
+}
 
 .nav-back {
   background-color: transparent;

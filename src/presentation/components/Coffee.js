@@ -5,6 +5,12 @@ import Loading from './Loading'
 import { View, Picker, Item } from 'react-native'
 import Style from './style'
 
+import actions from '../../business/actions'
+const setMap = {
+  style: actions.setCoffeeStyle,
+  size: actions.setCoffeeSize
+}
+
 class Coffee extends Component {
 
   render () {
@@ -14,53 +20,43 @@ class Coffee extends Component {
 
     return (
       <View style={Style.coffee}>
-        {this.formStyle()}
-        {this.formSize()}
+        {this.renderDD('style')}
+        {this.renderDD('size')}
       </View>
     )
   }
 
-  setStyle (e) {
-  }
-
-  formStyle () {
+  renderDD (name) {
     return (
       <Picker
         style={[Style.fill,Style.formCardContainer]}
-        selectedValue={this.props.coffee.style}
-        onChangeValue={(e) => this.setStyle(e)}>
+        selectedValue={this.props.coffee[name]}
+        onChangeValue={this.onChangeSelect(name, setMap[name])}>
         <Item label='empty' value='empty'/>
-        {this.props.menu.style.map(it => (
+        {this.props.menu[name].map(it => (
           <Item label={it} value={it}/>
         ))}
       </Picker>
     )
   }
 
-  setSize (e) {
-  }
-
-  formSize () {
-    return (
-      <Picker
-        style={[Style.fill,Style.formCardContainer]}
-        selectedValue={this.props.coffee.size}
-        onChangeValue={(e) => this.setSize(e)}>
-        <Item label='empty' value='empty'/>
-        {this.props.menu.size.map(it => (
-          <Item label={it} value={it}/>
-        ))}
-      </Picker>
-    )
+  onChangeSelect (name, action) {
+    return (e) => {
+      const value = e.target.value
+      const { dispatch, orderId, coffee } = this.props
+      action(dispatch, orderId, coffee.id, value)
+    }
   }
 
 }
 
 Coffee.propTypes = {
   coffee: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     style: PropTypes.string.isRequired,
     size: PropTypes.string.isRequired
   }),
+  orderId: PropTypes.number.isRequired,
   menu: PropTypes.shape({
     style: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     size: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
