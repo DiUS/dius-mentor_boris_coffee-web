@@ -11,6 +11,10 @@ class CoffeeSummary extends Component {
     actions.selectCoffee(this.props.dispatch, this.props.orderId, this.props.id)
   }
 
+  delete() {
+
+  }
+
   render () {
     const { summary } = this.props
     return (
@@ -23,7 +27,7 @@ class CoffeeSummary extends Component {
           </TouchableHighlight>
         </View>
         <View style={Style.deleteCard}>
-          <Button title={'X'} color='red'/>
+          <Button title={'X'} color='red' onPress={(e) => this.delete(e)}/>
         </View>
       </View>
     )

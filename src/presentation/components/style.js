@@ -5,8 +5,8 @@ module.exports = StyleSheet.create({
     flex:1,
     backgroundColor: 'darkblue',
     color: 'white',
-    margin: '0',
-    padding: '0.5rem',
+    margin: 0,
+    padding: 8,
     textAlign: 'center'
   },
   navBack:{
@@ -15,7 +15,7 @@ module.exports = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     justifyContent:'space-between',
-    margin:'0.2rem'
+    margin:3
   },
   ordersAll: {
 
@@ -43,20 +43,20 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'aliceblue',
-    padding: '0.3rem'
+    padding: 4
   },
   orderName: {
     fontWeight: 'bold'
   },
   formCardContainer:{
-    margin: '0.5rem',
+    margin: 8,
   },
   formCard: {
     width:'100%',
-    padding: '0.45rem',
+    padding: 6,
     borderColor: 'gray',
     borderWidth: 1,
-    fontSize: '1.0rem'
+    fontSize: 16
   },
   loading: {
     color: 'gray',
@@ -66,14 +66,14 @@ module.exports = StyleSheet.create({
     flex:1,
     borderWidth: 1,
     borderColor: 'transparent',
-    margin: '0.5rem',
-    padding: '0.5rem',
+    margin: 8,
+    padding: 8,
   },
   card: {
     borderWidth: 1,
     borderColor: 'lightgrey',
-    margin: '0.5rem',
-    padding: '0.5rem',
+    margin: 8,
+    padding: 8,
   },
   deleteCard: {
     width : 50
