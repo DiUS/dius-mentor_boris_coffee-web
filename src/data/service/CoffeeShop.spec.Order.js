@@ -163,6 +163,41 @@ export default ({ provider, client, headers }) =>
       )
     })
 
+    describe('adds an order', () => {
+      // given:
+      beforeEach(() =>
+        provider.addInteraction({
+          state: 'no orders',
+          uponReceiving: 'request to add an order',
+          withRequest: {
+            method: 'POST',
+            path: '/order',
+            headers: headers.request
+          },
+          willRespondWith: {
+            status: 201,
+            headers: headers.response,
+            body: {
+              id: like(11),
+              path: like('/order/11')
+            }
+          }
+        })
+      )
+
+      // when:
+      it('', () => client.addOrder()
+      // then:
+        .then((body) => {
+          expect(body).to.eql({
+            id: 11,
+            path: '/order/11'
+          })
+        })
+        .catch(fail)
+      )
+    })
+
     describe('names an order', () => {
       // given:
       beforeEach(() =>
