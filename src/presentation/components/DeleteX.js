@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { Button } from 'react-native'
 import PropTypes from 'prop-types'
 
 class DeleteX extends Component {
 
   render () {
-    return (<span className='delete-card' onClick={this.props.onClick}>✕</span>)
+    return (<Button title={'X'} color='red' onPress={this.props.onClick}/>)
   }
 
 }

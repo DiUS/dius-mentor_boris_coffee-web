@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Button, TouchableHighlight } from 'react-native'
+import { Text, View, TouchableHighlight } from 'react-native'
 import PropTypes from 'prop-types'
 
 import DeleteX from './DeleteX'
@@ -22,12 +22,12 @@ class CoffeeSummary extends Component {
         <View style={Style.fill}>
           <TouchableHighlight style={Style.orderRow} onPress={(e) => this.select(e)}>
             <View>
-              <Text style={Style.orderName}>{summary}</Text>
+              <Text style={Style.orderName}>{this.props.summary}</Text>
             </View>
           </TouchableHighlight>
         </View>
         <View style={Style.deleteCard}>
-          <Button title={'X'} color='red' onPress={(e) => this.cancel(e)}/>
+          <DeleteX onClick={(e) => this.cancel(e)}/>
         </View>
       </View>
     )
