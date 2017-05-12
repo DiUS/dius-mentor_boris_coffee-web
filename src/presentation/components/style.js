@@ -40,10 +40,10 @@ module.exports = StyleSheet.create({
 
   },
   addButton: {
-    flex: 1;
-    justifyContent: 'flex-end';
-    margin: 8;
-    padding: 8;
+    flex: 1,
+    justifyContent: 'flex-end',
+    margin: 8,
+    padding: 8
   },
   orderRow:{
     flex: 1,
