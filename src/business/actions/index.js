@@ -27,6 +27,9 @@ export const RECEIVE_COFFEE = 'RECEIVE_COFFEE'
 export const REQUEST_COFFEE_CANCEL = 'REQUEST_COFFEE_CANCEL'
 export const RECEIVE_COFFEE_CANCEL_OK = 'RECEIVE_COFFEE_CANCEL_OK'
 
+export const REQUEST_COFFEE_ADD = 'REQUEST_COFFEE_ADD'
+export const RECEIVE_COFFEE_ADD_OK = 'RECEIVE_COFFEE_ADD_OK'
+
 export const REQUEST_COFFEE_SET_STYLE = 'REQUEST_COFFEE_SET_STYLE'
 export const RECEIVE_COFFEE_SET_STYLE_OK = 'RECEIVE_COFFEE_SET_STYLE_OK'
 
@@ -43,6 +46,9 @@ const actions = {
 
     cancel: (orderId, coffeeId) => ({ type: REQUEST_COFFEE_CANCEL, orderId, coffeeId }),
     cancelOk: () => ({ type: RECEIVE_COFFEE_CANCEL_OK }),
+
+    add: (orderId) => ({ type: REQUEST_COFFEE_ADD, orderId }),
+    addOk: (coffee) => ({ type: RECEIVE_COFFEE_ADD_OK, coffee }),
 
     setStyle: (orderId, coffeeId, style) => ({ type: REQUEST_COFFEE_SET_STYLE, orderId, coffeeId, style }),
     setStyleOk: (coffeeId, style) => ({ type: RECEIVE_COFFEE_SET_STYLE_OK, coffeeId, style }),
@@ -176,6 +182,21 @@ toExport.renameOrder = (dispatch, orderId, name) => {
       if (json) {
         return dispatch(actions.order.renameOk(orderId, name))
       }
+    })
+}
+
+toExport.addCoffee = (dispatch, orderId) => {
+  dispatch(actions.coffee.add(orderId))
+  return service.addCoffee(orderId)
+    .catch((error) => {
+      console.log(error)
+      toExport.deselectCoffee(dispatch)
+      return null
+    })
+    .then((json) => {
+      dispatch(actions.coffee.addOk(json))
+      refreshOrder(dispatch, orderId)
+      return toExport.selectCoffee(dispatch, orderId, json.id)
     })
 }
 
