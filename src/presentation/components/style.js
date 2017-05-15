@@ -55,7 +55,10 @@ module.exports = StyleSheet.create({
     fontWeight: 'bold'
   },
   formCardContainer:{
-    margin: 8,
+    margin: 8
+  },
+  formLabel: {
+    width: 48
   },
   formCard: {
     width:'100%',

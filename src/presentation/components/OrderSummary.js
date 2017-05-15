@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button, TouchableHighlight } from 'react-native'
+import { Text, View, TouchableHighlight } from 'react-native'
 import Style from './style'
 
 import DeleteX from './DeleteX'
@@ -31,7 +31,7 @@ class OrderSummary extends Component {
           </TouchableHighlight>
         </View>
         <View style={Style.deleteCard}>
-          <Button title={'X'} color='red' onPress={(e) => this.cancel(e)}/>
+          <DeleteX onClick={(e) => this.cancel(e)}/>
         </View>
       </View>
     )

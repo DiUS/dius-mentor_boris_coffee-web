@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { View, Picker, Text, Item } from 'react-native'
 import PropTypes from 'prop-types'
+import Style from './style'
 
 const capitalise = (value) => value.charAt(0).toUpperCase() + value.slice(1)
 
@@ -8,20 +10,21 @@ class DropDown extends Component {
   render () {
     const { name, value, options, onChange } = this.props
     return (
-      <form className='select-card'>
-        <span className='form-label'>{capitalise(name)}:</span>
-        <select
-          name={name}
-          className={`coffee-${name} select-card`}
-          value={value}
-          onChange={(e) => onChange(e)}
-        >
-          <option key='empty' />
+      <View style={Style.order}>
+        <Text style={Style.formLabel}>{capitalise(name)}</Text>
+        <Text>{value}</Text>
+        {options.map(it => (
+          <Text>{it}</Text>
+        ))}
+        <Picker
+          style={[Style.fill,Style.formCardContainer]}
+          selectedValue={value}
+          onChangeValue={(e) => this.onChange(e)}>
           {options.map(it => (
-            <option key={it}>{it}</option>
+            <Item label={it} value={it}/>
           ))}
-        </select>
-      </form>
+        </Picker>
+      </View>
     )
   }
 

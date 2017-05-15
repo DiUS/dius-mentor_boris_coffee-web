@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
-
 import Loading from './Loading'
-import { View, Picker, Item } from 'react-native'
+import DropDown from './DropDown'
 import Style from './style'
 
 import actions from '../../business/actions'
@@ -28,15 +28,12 @@ class Coffee extends Component {
 
   renderDD (name) {
     return (
-      <Picker
-        style={[Style.fill,Style.formCardContainer]}
-        selectedValue={this.props.coffee[name]}
-        onChangeValue={this.onChangeSelect(name, setMap[name])}>
-        <Item label='empty' value='empty'/>
-        {this.props.menu[name].map(it => (
-          <Item label={it} value={it}/>
-        ))}
-      </Picker>
+      <DropDown
+        name={name}
+        value={this.props.coffee[name]}
+        options={this.props.menu[name]}
+        onChange={this.onChangeSelect(name, setMap[name])}
+      />
     )
   }
 
