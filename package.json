@@ -2,19 +2,20 @@
   "name": "dius-mentor_boris_coffee-web",
   "version": "0.1.0",
   "devDependencies": {
-    "chai": "3.5.0",
-    "enzyme": "^2.4.1",
-    "mocha": "3.3.0",
-    "pact": "2.3.4",
+    "chai": "4.3.6",
+    "enzyme": "^3.11.0",
+    "mocha": "9.2.2",
+    "pact": "4.3.2",
     "react-addons-test-utils": "^15.3.0",
-    "react-scripts": "^0.9.3"
+    "react-scripts": "^5.0.1"
   },
   "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
     "prop-types": "^15.5.8",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^8.0.1",
+    "redux": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,6 +35,18 @@
       "fail",
       "fetch",
       "it"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }
